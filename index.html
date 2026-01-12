@@ -1,341 +1,188 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tan Kian Ping | Creative Director - Snake Style</title>
+    <title>Tan Kian Ping | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-dark: #07070a;
-            --bg-light: #1a1a2e;
-            --accent-blue: #00d2ff;
-            --accent-purple: #9d50bb;
-            --text-main: #ffffff;
-            --text-secondary: #aaaaaa;
-            --glass-card: rgba(255, 255, 255, 0.04);
-            --border-light: rgba(255, 255, 255, 0.1);
-            --border-accent: rgba(0, 210, 255, 0.3);
-            --font-main: 'Inter', 'PingFang SC', sans-serif;
-            --font-display: 'Montserrat', sans-serif; /* For prominent titles */
-        }
-
-        body, html {
-            margin: 0; padding: 0;
-            font-family: var(--font-main);
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        /* 蛇形流体渐变背景 */
-        .snake-gradient-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -2;
-            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-light) 100%);
-            overflow: hidden;
-        }
-
-        .snake-shape {
-            position: absolute;
-            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
-            border-radius: 50%; /* Make it blob-like */
-            filter: blur(80px); /* Soft glow */
-            opacity: 0.15;
-            animation: floatShape 20s infinite ease-in-out;
-        }
-        .snake-shape:nth-child(1) { width: 400px; height: 400px; top: 10%; left: -10%; animation-delay: 0s; }
-        .snake-shape:nth-child(2) { width: 500px; height: 500px; bottom: 5%; right: -15%; animation-delay: 5s; }
-        .snake-shape:nth-child(3) { width: 300px; height: 300px; top: 50%; left: 30%; animation-delay: 10s; }
-
-        @keyframes floatShape {
-            0% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(20px, -30px) scale(1.05); }
-            50% { transform: translate(0, 50px) scale(0.95); }
-            75% { transform: translate(-40px, -20px) scale(1.1); }
-            100% { transform: translate(0, 0) scale(1); }
-        }
-
-        /* 导航栏 */
-        nav {
-            position: fixed; top: 0; width: 100%; padding: 25px 60px;
-            display: flex; justify-content: space-between; align-items: center;
-            background: rgba(7, 7, 10, 0.8); backdrop-filter: blur(15px);
-            z-index: 1000; box-sizing: border-box; border-bottom: 1px solid var(--border-light);
-        }
-        .nav-logo { font-weight: 900; letter-spacing: 3px; font-size: 1.2rem; color: var(--text-main); }
-        .lang-switch {
-            background: transparent; border: 1px solid var(--accent-blue);
-            color: var(--accent-blue); padding: 8px 20px; cursor: pointer;
-            border-radius: 25px; transition: all 0.3s ease;
-            font-size: 0.9rem; text-transform: uppercase;
-        }
-        .lang-switch:hover { background: var(--accent-blue); color: var(--bg-dark); transform: scale(1.05); }
-
-        /* 主体内容容器 */
-        .container { max-width: 1000px; margin: 0 auto; padding: 150px 30px 100px; }
-
-        /* Hero Section */
-        .hero { 
-            display: flex; flex-direction: column; align-items: center; text-align: center;
-            min-height: calc(100vh - 150px); justify-content: center; margin-bottom: 120px;
-        }
-        .avatar-frame {
-            width: 180px; height: 180px; border-radius: 50%; overflow: hidden;
-            border: 2px solid var(--accent-blue); box-shadow: 0 0 30px rgba(0, 210, 255, 0.3);
-            margin-bottom: 30px; position: relative;
-        }
-        .avatar-frame img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(10%); transition: filter 0.5s; }
-        .avatar-frame img:hover { filter: grayscale(0%); }
-
-        .name-title { font-size: 0.9rem; letter-spacing: 3px; color: var(--text-secondary); margin-bottom: 10px; }
-        .main-headline { 
-            font-family: var(--font-display); font-size: 4.5rem; font-weight: 800; 
-            line-height: 1.1; margin: 0;
-            background: linear-gradient(to right, #fff, var(--accent-blue), var(--accent-purple));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
-        }
-        .typewriter-text { font-size: 1.8rem; color: var(--accent-blue); min-height: 2.5em; margin-top: 25px; font-weight: 300; }
-        .hero-intro { font-size: 1.1rem; color: var(--text-secondary); max-width: 700px; margin: 20px auto 0; }
-        
-        /* Section Styling */
-        section { margin-bottom: 100px; padding: 40px; background: var(--glass-card); border-radius: 20px; border: 1px solid var(--border-light); }
-        .section-header { text-align: center; margin-bottom: 60px; }
-        .section-title { 
-            font-family: var(--font-display); font-size: 2.5rem; font-weight: 700; 
-            margin: 0; color: var(--text-main);
-            background: linear-gradient(to right, var(--accent-blue), var(--accent-purple));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .section-subtitle { font-size: 1rem; color: var(--text-secondary); letter-spacing: 2px; text-transform: uppercase; margin-top: 10px; }
-
-        /* Resume Items */
-        .resume-item { 
-            display: flex; margin-bottom: 40px; position: relative;
-            background: rgba(255, 255, 255, 0.02); padding: 25px; border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .resume-item:last-child { margin-bottom: 0; }
-        .resume-year { 
-            min-width: 100px; color: var(--accent-blue); font-weight: 600; 
-            font-size: 0.9rem; flex-shrink: 0; padding-right: 20px;
-        }
-        .resume-content h3 { margin: 0 0 5px 0; font-size: 1.4rem; color: var(--text-main); }
-        .resume-content .role { font-style: italic; color: var(--text-secondary); margin-bottom: 10px; }
-        .resume-content p { font-size: 0.95rem; color: var(--text-secondary); }
-        .resume-content ul { list-style: none; padding: 0; margin-top: 15px; }
-        .resume-content ul li { position: relative; padding-left: 20px; margin-bottom: 8px; font-size: 0.9rem; color: var(--text-secondary); }
-        .resume-content ul li::before { content: "»"; position: absolute; left: 0; color: var(--accent-blue); }
-
-        /* Education */
-        .education-item {
-            background: rgba(255, 255, 255, 0.02); padding: 25px; border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.05); margin-bottom: 20px;
-        }
-        .education-item h3 { margin: 0 0 5px 0; font-size: 1.3rem; }
-        .education-item .degree { color: var(--text-secondary); margin-bottom: 10px; }
-        .education-item .link-button {
-            display: inline-block; background: var(--accent-blue); color: var(--bg-dark);
-            padding: 8px 15px; border-radius: 20px; text-decoration: none;
-            font-size: 0.85rem; transition: background 0.3s;
-        }
-        .education-item .link-button:hover { background: #fff; }
-
-        /* Skills */
-        .skills-grid { 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
-            gap: 20px; margin-top: 30px;
-        }
-        .skill-item { 
-            background: rgba(255, 255, 255, 0.02); padding: 15px; border-radius: 8px;
-            text-align: center; border: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 0.9rem; font-weight: 500; color: var(--text-main);
-        }
-
-        /* Portfolio */
-        .portfolio-grid { 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 30px; margin-top: 40px;
-        }
-        .portfolio-card { 
-            background: var(--glass-card); border: 1px solid var(--border-light);
-            border-radius: 15px; overflow: hidden; transition: all 0.4s ease;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        }
-        .portfolio-card:hover { transform: translateY(-10px) scale(1.02); border-color: var(--accent-blue); box-shadow: 0 12px 25px rgba(0, 210, 255, 0.3); }
-        .portfolio-card img { width: 100%; height: 220px; object-fit: cover; filter: grayscale(50%); transition: filter 0.4s; }
-        .portfolio-card:hover img { filter: grayscale(0%); }
-        .portfolio-card .title { padding: 20px; font-size: 1.1rem; font-weight: 600; color: var(--text-main); }
-        .portfolio-card .desc { padding: 0 20px 20px; font-size: 0.9rem; color: var(--text-secondary); }
-
-        /* Modal for Diploma */
-        .modal {
-            display: none; position: fixed; z-index: 1001; left: 0; top: 0;
-            width: 100%; height: 100%; overflow: auto;
-            background-color: rgba(0,0,0,0.8);
-        }
-        .modal-content {
-            margin: auto; display: block; max-width: 90%; max-height: 90%;
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            border: 2px solid var(--accent-blue); box-shadow: 0 0 30px var(--accent-blue);
-        }
-        .close-button {
-            position: absolute; top: 20px; right: 35px; color: #fff;
-            font-size: 40px; font-weight: bold; transition: 0.3s; cursor: pointer;
-        }
-        .close-button:hover, .close-button:focus { color: var(--accent-blue); text-decoration: none; }
-
-        .cursor { animation: blink 0.8s infinite; color: var(--accent-blue); }
-        @keyframes blink { 50% { opacity: 0; } }
-
-        @media (max-width: 768px) {
-            nav { padding: 20px; }
-            .container { padding: 100px 15px 50px; }
-            .main-headline { font-size: 3rem; }
-            .typewriter-text { font-size: 1.3rem; }
-            .hero-intro { font-size: 1rem; }
-            .section-title { font-size: 1.8rem; }
-            .resume-item { flex-direction: column; }
-            .resume-year { min-width: unset; padding-right: 0; margin-bottom: 10px; }
-            .portfolio-grid { grid-template-columns: 1fr; }
-        }
+        [x-cloak] { display: none !important; }
+        body { font-family: 'Inter', 'Noto Sans SC', sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); }
+        .timeline-dot { width: 12px; height: 12px; background: #6366f1; border-radius: 50%; position: absolute; left: -7px; top: 8px; }
     </style>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-900" x-data="portfolioData()" x-init="init()" x-cloak>
 
-    <div class="snake-gradient-bg">
-        <div class="snake-shape"></div>
-        <div class="snake-shape"></div>
-        <div class="snake-shape"></div>
-    </div>
-
-    <nav>
-        <div class="nav-logo">K.P. TAN</div>
-        <button class="lang-switch" onclick="toggleLang()">EN / 中文</button>
+    <nav class="fixed top-0 w-full z-50 glass border-b border-gray-200">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex justify-between items-center">
+            <span class="font-bold text-xl tracking-tighter text-indigo-600">TAN KIAN PING</span>
+            <div class="flex items-center space-x-6">
+                <div class="hidden md:flex space-x-6 text-sm font-medium">
+                    <a href="#experience" class="hover:text-indigo-600 transition" x-text="t('nav.exp')"></a>
+                    <a href="#portfolio" class="hover:text-indigo-600 transition" x-text="t('nav.work')"></a>
+                    <a href="#education" class="hover:text-indigo-600 transition" x-text="t('nav.edu')"></a>
+                </div>
+                <button @click="toggleLang()" class="bg-gray-900 text-white px-4 py-1.5 rounded-full text-xs font-bold hover:bg-indigo-600 transition-all">
+                    <span x-text="lang === 'zh' ? 'English' : '中文'"></span>
+                </button>
+            </div>
+        </div>
     </nav>
 
-    <div class="container">
-        <section class="hero">
-            <div class="avatar-frame">
-                <img src="avatar.jpg" alt="Tan Kian Ping" onerror="this.src='https://ui-avatars.com/api/?name=Kian+Ping&background=00d2ff&color=fff&size=300'">
+    <section class="pt-32 pb-20 px-6 max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
+        <div class="w-48 h-48 md:w-64 md:h-64 rounded-2xl overflow-hidden shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500">
+            <img src="avatar.jpg" alt="Tan Kian Ping" class="w-full h-full object-cover">
+        </div>
+        <div class="flex-1 text-center md:text-left">
+            <h1 class="text-5xl md:text-6xl font-bold mb-4" x-text="t('hero.name')"></h1>
+            <p class="text-xl text-indigo-600 font-medium mb-6" x-text="t('hero.title')"></p>
+            <p class="text-gray-600 max-w-2xl leading-relaxed mb-8" x-text="t('hero.bio')"></p>
+            <div class="flex flex-wrap justify-center md:justify-start gap-4">
+                <a href="mailto:kp0046@gmail.com" class="bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-indigo-600 transition flex items-center">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    Contact Me
+                </a>
+                <a :href="lang === 'zh' ? 'Resume001 Chinese.docx' : 'Resume001.docx'" class="border-2 border-gray-900 px-6 py-3 rounded-lg font-bold hover:bg-gray-50 transition" download x-text="t('hero.download')"></a>
             </div>
-            <div id="name-label" class="name-title">TAN KIAN PING</div>
-            <h1 class="main-headline"></h1>
-            <div id="typewriter" class="typewriter-text"><span class="cursor">|</span></div>
-            <p id="hero-intro" class="hero-intro"></p>
-        </section>
+        </div>
+    </section>
 
-        <section id="experience">
-            <div class="section-header">
-                <h2 class="section-title" id="t-exp-title">职业历程</h2>
-                <p class="section-subtitle" id="t-exp-subtitle">Professional Journey</p>
+    <section id="experience" class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 flex items-center gap-4">
+                <span class="p-2 bg-indigo-100 rounded-lg text-indigo-600">💼</span>
+                <span x-text="t('nav.exp')"></span>
+            </h2>
+            <div class="space-y-12 border-l-2 border-gray-100 ml-2">
+                <template x-for="exp in t('expList')" :key="exp.company">
+                    <div class="relative pl-8">
+                        <div class="timeline-dot"></div>
+                        <div class="flex flex-wrap justify-between items-center mb-1">
+                            <h3 class="text-xl font-bold text-gray-800" x-text="exp.role"></h3>
+                            <span class="text-sm font-bold text-indigo-500 bg-indigo-50 px-3 py-1 rounded-full" x-text="exp.date"></span>
+                        </div>
+                        <p class="text-gray-500 font-medium mb-3" x-text="exp.company"></p>
+                        <ul class="text-gray-600 space-y-2 text-sm leading-relaxed">
+                            <template x-for="desc in exp.descs">
+                                <li class="flex items-start">
+                                    <span class="mr-2 text-indigo-300">•</span>
+                                    <span x-text="desc"></span>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                </template>
             </div>
-            <div id="exp-container"></div>
-        </section>
+        </div>
+    </section>
 
-        <section id="education">
-            <div class="section-header">
-                <h2 class="section-title" id="t-edu-title">教育背景</h2>
-                <p class="section-subtitle" id="t-edu-subtitle">Education & Certification</p>
+    <section id="portfolio" class="py-20 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center" x-text="t('nav.work')"></h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <template x-for="p in t('projects')" :key="p.title">
+                    <div class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-gray-100">
+                        <div class="aspect-video bg-gray-200 overflow-hidden">
+                            <img :src="p.img" :alt="p.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg mb-2" x-text="p.title"></h3>
+                            <p class="text-gray-500 text-sm mb-4" x-text="p.desc"></p>
+                            <div class="flex flex-wrap gap-2">
+                                <template x-for="tag in p.tags">
+                                    <span class="text-[10px] px-2 py-1 bg-gray-100 text-gray-500 rounded font-bold uppercase" x-text="tag"></span>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </template>
             </div>
-            <div class="education-item">
-                <h3>Informatics College</h3>
-                <p class="degree" id="edu-degree">Advanced Diploma in Computer Studies</p>
-                <p class="course-detail" id="edu-course-detail">Specializing in Computer Graphic Design & 3D Animation.</p>
-                <span class="cert-year" style="color:var(--text-secondary); font-size:0.9rem;">1996 - 1998</span>
-                <a href="#" class="link-button" onclick="openModal('diploma.jpg'); return false;" id="view-diploma-btn">查看文凭</a>
-            </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="skills">
-            <div class="section-header">
-                <h2 class="section-title" id="t-skills-title">核心技能</h2>
-                <p class="section-subtitle" id="t-skills-subtitle">Key Competencies</p>
+    <section id="education" class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12" x-text="t('nav.edu')"></h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <template x-for="edu in t('eduList')">
+                    <div class="p-6 border border-gray-100 rounded-2xl hover:border-indigo-200 transition">
+                        <img :src="edu.cert" class="w-full h-40 object-cover rounded-lg mb-4 cursor-zoom-in" @click="window.open(edu.cert)">
+                        <h3 class="font-bold text-lg" x-text="edu.school"></h3>
+                        <p class="text-indigo-600 text-sm mb-2" x-text="edu.major"></p>
+                        <p class="text-gray-400 text-xs" x-text="edu.date"></p>
+                    </div>
+                </template>
             </div>
-            <div class="skills-grid" id="skills-list"></div>
-        </section>
+        </div>
+    </section>
 
-        <section id="projects">
-            <div class="section-header">
-                <h2 class="section-title" id="t-port-title">精选作品</h2>
-                <p class="section-subtitle" id="t-port-subtitle">Selected Portfolio</p>
-            </div>
-            <div class="portfolio-grid" id="portfolio-items"></div>
-        </section>
-    </div>
-
-    <div id="myModal" class="modal">
-        <span class="close-button" onclick="closeModal()">&times;</span>
-        <img class="modal-content" id="img01">
-    </div>
+    <footer class="py-12 text-center border-t border-gray-100 text-gray-400 text-sm">
+        <p>© 2026 Tan Kian Ping. Designed for Excellence.</p>
+    </footer>
 
     <script>
-        const content = {
-            zh: {
-                main_headline: "陈建凭",
-                intro: "逾20年资深创意总监与多媒体专家。精通3D动画、交互设计及全案品牌视觉构建。致力于融合AI前沿技术与传统美学直觉，为品牌创造数字化未来优势。",
-                typewriter: ["融合AI与视觉设计美学", "二十年创意沉淀", "打造沉浸式品牌体验"],
-                exp_title: "职业历程",
-                exp_subtitle: "Professional Journey",
-                edu_title: "教育背景",
-                edu_subtitle: "Education & Certification",
-                edu_degree: "计算机研究高级文凭",
-                edu_course_detail: "主修计算机平面设计与3D动画。",
-                view_diploma: "查看文凭",
-                skills_title: "核心技能",
-                skills_subtitle: "Key Competencies",
-                port_title: "精选作品",
-                port_subtitle: "Selected Portfolio",
-                exp: [
-                    { year: "2004 — 2016", co: "Sky Book City", role: "创始人 / 运营总监", desc: "成功创立并经营独立品牌，负责从视觉识别系统（VI）到市场运营的全链条管理。沉淀了深厚的商业直觉与品牌构建能力。", responsibilities: ["品牌策略与VI设计", "市场推广与社区运营", "库存管理与财务规划"] },
-                    { year: "2000 — 2002", co: "Elitniaga Sdn Bhd", role: "多媒体设计师", desc: "主导 Flash 交互设计与 3D 视觉素材创作。为大型企业提供数字产品演示方案，提升品牌技术形象。", responsibilities: ["Flash动画与交互设计", "3D建模与渲染", "企业演示方案开发"] },
-                    { year: "1998 — 2000", co: "Hitechniaga Sdn Bhd", role: "网页视觉设计师", desc: "负责大型企业网站的视觉架构与动态交互逻辑设计。在互联网浪潮初期，为客户构建前卫的数字化在线平台。", responsibilities: ["网站UI/UX设计", "动态图形与动效", "客户项目管理"] }
-                ],
-                skills: ["Adobe Creative Suite", "Figma / Sketch", "3D Studio Max", "Flash / ActionScript", "UI/UX Design", "Brand Identity", "Motion Graphics", "Project Management", "Marketing Strategy", "AI Tools (Midjourney, DALL-E)"],
-                portfolio: [
-                    { img: "country.jpg", title: "Poh Kong Jewellers", desc: "珠宝品牌互动营销活动视觉设计。" },
-                    { img: "stanchart.jpg", title: "Standard Chartered", desc: "渣打银行年度报告及数字演示设计。" },
-                    { img: "tactics.jpg", title: "Bonia Group", desc: "华伦天奴品牌系列视觉推广策略。" },
-                    { img: "pohkong.jpg", title: "MSC Venture Corp", desc: "马来西亚多媒体超级走廊企业孵化器项目视觉。" },
-                    { img: "mscvc.jpg", title: "Multimedia Presentation", desc: "大型多媒体演示系统设计与开发。" },
-                    { img: "mml.jpg", title: "MML Project", desc: "教育科技平台界面与内容设计。" },
-                    { img: "malbex.jpg", title: "Malbex Exhibition", desc: "国际展览会展位与宣传物料设计。" }
-                ]
-            },
-            en: {
-                main_headline: "Kian Ping Tan",
-                intro: "A veteran Creative Director with 20+ years of expertise in 3D animation, interactive design, and full-spectrum brand visual strategy. Dedicated to integrating cutting-edge AI with traditional aesthetics to forge digital competitive advantages for brands.",
-                typewriter: ["Fusing AI with Visual Design", "Two Decades of Creative Mastery", "Crafting Immersive Brand Experiences"],
-                exp_title: "Professional Journey",
-                exp_subtitle: "Professional Journey",
-                edu_title: "Education",
-                edu_subtitle: "Education & Certification",
-                edu_degree: "Advanced Diploma in Computer Studies",
-                edu_course_detail: "Specializing in Computer Graphic Design & 3D Animation.",
-                view_diploma: "View Diploma",
-                skills_title: "Core Competencies",
-                skills_subtitle: "Key Competencies",
-                port_title: "Selected Portfolio",
-                port_subtitle: "Selected Portfolio",
-                exp: [
-                    { year: "2004 — 2016", co: "Sky Book City", role: "Founder / Operations Manager", desc: "Successfully founded and managed an independent brand, overseeing visual identity to market operations. Developed strong business acumen and brand building expertise.", responsibilities: ["Brand Strategy & VI Design", "Marketing & Community Engagement", "Inventory Management & Financial Planning"] },
-                    { year: "2000 — 2002", co: "Elitniaga Sdn Bhd", role: "Multimedia Designer", desc: "Led Flash interactive design and 3D visual asset creation. Developed digital product presentation solutions for corporate clients.", responsibilities: ["Flash Animation & Interactive Design", "3D Modeling & Rendering", "Corporate Presentation Development"] },
-                    { year: "1998 — 2000", co: "Hitechniaga Sdn Bhd", role: "Web Visual Designer", desc: "Responsible for visual architecture and dynamic interaction logic for large corporate websites. Built pioneering digital online platforms during the early internet era.", responsibilities: ["Website UI/UX Design", "Motion Graphics & Animation", "Client Project Management"] }
-                ],
-                skills: ["Adobe Creative Suite", "Figma / Sketch", "3D Studio Max", "Flash / ActionScript", "UI/UX Design", "Brand Identity", "Motion Graphics", "Project Management", "Marketing Strategy", "AI Tools (Midjourney, DALL-E)"],
-                portfolio: [
-                    { img: "country.jpg", title: "Poh Kong Jewellers", desc: "Visual design for interactive marketing campaigns for a jewelry brand." },
-                    { img: "stanchart.jpg", title: "Standard Chartered", desc: "Design for annual reports and digital presentations for Standard Chartered Bank." },
-                    { img: "tactics.jpg", title: "Bonia Group", desc: "Visual promotion strategy for Valentino brand collections." },
-                    { img: "pohkong.jpg", title: "MSC Venture Corp", desc: "Visuals for Malaysia's Multimedia Super Corridor incubator projects." },
-                    { img: "mscvc.jpg", title: "Multimedia Presentation", desc: "Design and development of large-scale multimedia presentation systems." },
-                    { img: "mml.jpg", title: "MML Project", desc: "Interface and content design for an educational technology platform." },
-                    { img: "malbex.jpg", title: "Malbex Exhibition", desc: "Booth and promotional material design for international exhibitions." }
-                ]
+        function portfolioData() {
+            return {
+                lang: 'zh',
+                content: {
+                    zh: {
+                        nav: { exp: '职业生涯', work: '设计作品', edu: '教育背景' },
+                        hero: {
+                            name: '陈建凭 Tan Kian Ping',
+                            title: '资深网页与多媒体设计师',
+                            bio: '拥有超过20年的创意设计经验，擅长将复杂的企业需求转化为极具互动性的数字体验。从早期的 Flash 动画到现代的响应式设计，始终保持对视觉美感与技术实现的高度追求。',
+                            download: '下载简历 (DOCX)'
+                        },
+                        expList: [
+                            { role: '独立漫画书店创始人兼经理 (Sky Book City)', company: '柔佛新山', date: '2004 - 2016', descs: ['全面负责零售书店运营、财务及数千件商品库存管理。','建立并维护了忠实的社区客户群体。'] },
+                            { role: '网页与多媒体设计师', company: 'Elitniaga Sdn Bhd, 吉隆坡', date: '2000 - 2002', descs: ['设计并维护富媒体网站及互动式企业演示文稿。','开发基于 Flash 的 3D 视觉产品演示。'] },
+                            { role: '网页与多媒体设计师', company: 'Hitechniaga Sdn Bhd, 吉隆坡', date: '1998 - 2000', descs: ['使用 Flash 和 Dreamweaver 为企业客户提供互动方案。','创建符合品牌要求的动态图形和视觉素材。'] }
+                        ],
+                        projects: [
+                            { title: '宝光 Poh Kong', desc: '千禧龙年金币促销网页设计，融入中国传统文化元素。', tags: ['Web Design', 'Promotion'], img: 'pohkong.jpg' },
+                            { title: 'Country Heights', desc: '企业成就与里程碑页面，侧重于高端地产的视觉呈现。', tags: ['Corporate', 'Layout'], img: 'country.jpg' },
+                            { title: 'Malbex 2004', desc: '马来西亚国际建筑博览会官网，复杂信息层级的清晰处理。', tags: ['Exhibition', 'UI'], img: 'malbex.jpg' },
+                            { title: 'MML Tiles', desc: 'Room for Ideas 瓷砖设计灵感画廊，强调自然美感。', tags: ['Product Show'], img: 'mml.jpg' },
+                            { title: 'MSCVC', desc: '多媒体超级走廊创业投资公司官网设计。', tags: ['Financial', 'VC'], img: 'mscvc.jpg' }
+                        ],
+                        eduList: [
+                            { school: '林国荣创意工艺学院 (LICT)', major: '平面设计专业文凭 (主修数字媒体)', date: '1996 - 1999', cert: 'lict_diploma.jpg' },
+                            { school: '宽柔中学', major: '理科毕业', date: '1990 - 1995', cert: 'foonyew_cert.jpg' }
+                        ]
+                    },
+                    en: {
+                        nav: { exp: 'Experience', work: 'Portfolio', edu: 'Education' },
+                        hero: {
+                            name: 'Tan Kian Ping',
+                            title: 'Web & Multimedia Designer',
+                            bio: 'Over 20 years of creative experience, specializing in transforming complex corporate needs into interactive digital experiences.',
+                            download: 'Download Resume'
+                        },
+                        expList: [
+                            { role: 'Founder & Manager (Sky Book City)', company: 'Johor Bahru', date: '2004 - 2016', descs: ['Managed all business operations, inventory, and marketing.','Established a loyal community customer base.'] },
+                            { role: 'Web & Multimedia Designer', company: 'Elitniaga Sdn Bhd, KL', date: '2000 - 2002', descs: ['Designed multimedia-rich websites and corporate presentations.','Developed Flash-based 3D visuals.'] },
+                            { role: 'Web & Multimedia Designer', company: 'Hitechniaga Sdn Bhd, KL', date: '1998 - 2000', descs: ['Delivered interactive web solutions using Flash and Dreamweaver.','Created high-quality motion graphics.'] }
+                        ],
+                        projects: [
+                            { title: 'Poh Kong', desc: 'Millennium Dragon Year promotion page design.', tags: ['Web Design', 'Campaign'], img: 'pohkong.jpg' },
+                            { title: 'Country Heights', desc: 'Corporate Achievements & Milestones showcase.', tags: ['Corporate'], img: 'country.jpg' },
+                            { title: 'Malbex 2004', desc: 'Official site for the International Building Exposition.', tags: ['UI/UX'], img: 'malbex.jpg' },
+                            { title: 'MML Tiles', desc: 'Room for Ideas - Inspiration gallery for premium tiles.', tags: ['Gallery'], img: 'mml.jpg' },
+                            { title: 'MSCVC', desc: 'Corporate portal for MSC Venture Corporation.', tags: ['Web Dev'], img: 'mscvc.jpg' }
+                        ],
+                        eduList: [
+                            { school: 'Limkokwing Institute (LICT)', major: 'Diploma in Graphic Design (Digital Media)', date: '1996 - 1999', cert: 'lict_diploma.jpg' },
+                            { school: 'Foon Yew High School', major: 'Science Stream', date: '1990 - 1995', cert: 'foonyew_cert.jpg' }
+                        ]
+                    }
+                },
+                toggleLang() { this.lang = this.lang === 'zh' ? 'en' : 'zh'; document.documentElement.lang = this.lang; },
+                t(path) { return path.split('.').reduce((obj, key) => obj[key], this.content[this.lang]); }
             }
-        };
-
-        let currentLang = 'zh'; // Default language
-        let
+        }
+    </script>
+</body>
+</html>
