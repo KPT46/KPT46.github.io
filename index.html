@@ -3,213 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tan Kian Ping (陈建凭) - Portfolio</title>
+    <title>K.P. TAN | Art Director & Creative Strategist</title>
     <style>
         :root {
-            --primary-bg: #0a0a0c;
-            --accent-color: #00d2ff;
-            --text-main: #ffffff;
-            --glass-bg: rgba(255, 255, 255, 0.05);
+            --bg: #050505;
+            --text: #ffffff;
+            --accent: #00d2ff;
+            --secondary: #666;
         }
 
-        body, html {
+        body {
             margin: 0; padding: 0;
-            font-family: "PingFang SC", "Segoe UI", sans-serif;
-            background-color: var(--primary-bg);
-            color: var(--text-main);
-            scroll-behavior: smooth;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: "Helvetica Neue", Helvetica, "PingFang SC", sans-serif;
+            line-height: 1.5;
+            overflow-x: hidden;
         }
 
-        /* 渐变波浪背景 */
-        .wave-bg {
+        /* 极简动态背景 */
+        .ambient-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; background: linear-gradient(135deg, #0a0a0c 0%, #1a1a2e 100%);
-            overflow: hidden; opacity: 0.6;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #050505 100%);
         }
 
-        /* 导航栏 */
+        .wave-container {
+            position: fixed; bottom: 0; left: 0; width: 100%; height: 200px;
+            opacity: 0.3; z-index: -1; pointer-events: none;
+        }
+
+        /* 导航 */
         nav {
-            position: fixed; top: 0; width: 100%; padding: 20px 50px;
-            display: flex; justify-content: space-between; align-items: center;
-            background: rgba(10, 10, 12, 0.8); backdrop-filter: blur(10px);
-            z-index: 1000; box-sizing: border-box;
+            padding: 40px 60px; display: flex; justify-content: space-between;
+            position: fixed; top: 0; width: 100%; box-sizing: border-box; z-index: 100;
+        }
+        .logo { font-weight: 900; letter-spacing: 5px; font-size: 1.2rem; }
+        .lang-btn { 
+            background: none; border: 1px solid #333; color: #fff; 
+            padding: 8px 20px; border-radius: 30px; cursor: pointer; font-size: 0.8rem;
         }
 
-        .lang-switch {
-            background: transparent; border: 1px solid var(--accent-color);
-            color: var(--accent-color); padding: 5px 15px; cursor: pointer;
-            border-radius: 20px; transition: 0.3s;
+        /* 核心布局 */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 60px; }
+
+        /* Hero Section */
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+        .hero-top { display: flex; align-items: flex-end; gap: 40px; margin-bottom: 20px; }
+        
+        .avatar-frame {
+            width: 120px; height: 120px; border-radius: 50%; overflow: hidden;
+            border: 1px solid var(--accent); padding: 5px;
         }
+        .avatar-frame img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
 
-        .lang-switch:hover { background: var(--accent-color); color: #000; }
-
-        /* 主体布局 */
-        .container { max-width: 1100px; margin: 0 auto; padding: 120px 20px; }
-
-        /* 英雄区 */
-        .hero { display: flex; align-items: center; min-height: 80vh; gap: 50px; }
-        .hero-text { flex: 1; }
-        .hero-img { width: 350px; height: 350px; border-radius: 50%; border: 2px solid var(--accent-color); object-fit: cover; }
-
-        .headline {
-            font-size: 3rem; font-weight: 700; min-height: 100px;
-            background: linear-gradient(90deg, #fff, #00d2ff, #9d50bb, #fff);
-            background-size: 300% auto; -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent; animation: gradientText 5s ease infinite;
-        }
-
-        @keyframes gradientText { 0% {background-position:0% 50%} 50% {background-position:100% 50%} 100% {background-position:0% 50%} }
+        .title-main { font-size: 5rem; font-weight: 100; margin: 0; letter-spacing: -2px; line-height: 1; }
+        
+        /* 打字机文字 */
+        .typewriter-box { font-size: 1.5rem; color: var(--accent); min-height: 2em; margin-top: 20px; font-weight: 300; }
 
         /* 简历版块 */
-        .section-title { font-size: 2rem; border-left: 4px solid var(--accent-color); padding-left: 15px; margin: 60px 0 30px; }
-        .resume-item { 
-            background: var(--glass-bg); padding: 25px; border-radius: 15px; 
-            margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1);
-        }
-        .resume-date { color: var(--accent-color); font-size: 0.9rem; margin-bottom: 10px; }
+        .section { padding: 100px 0; border-top: 1px solid #1a1a1a; }
+        .section-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 60px; }
+        .section-num { font-size: 0.8rem; color: var(--secondary); font-family: serif; font-style: italic; }
+        .section-title { font-size: 2.5rem; margin: 0; font-weight: 200; }
 
-        /* 作品集网格 */
-        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .portfolio-card { 
-            background: #16161a; border-radius: 10px; overflow: hidden; 
-            transition: transform 0.3s; border: 1px solid rgba(255,255,255,0.05);
-        }
-        .portfolio-card:hover { transform: translateY(-10px); }
-        .portfolio-card img { width: 100%; height: 200px; object-fit: cover; }
-        .portfolio-card h3 { padding: 15px; margin: 0; font-size: 1.1rem; }
+        .resume-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 40px; margin-bottom: 80px; }
+        .year { color: var(--secondary); font-size: 0.9rem; margin-top: 5px; }
+        .exp-info h3 { margin: 0 0 10px 0; font-size: 1.4rem; font-weight: 400; }
+        .exp-info p { color: #888; margin: 0; font-size: 1rem; max-width: 600px; }
 
-        .cursor { display: inline-block; width: 3px; background: var(--accent-color); margin-left: 5px; animation: blink 0.7s infinite; }
+        /* 作品集区 - 艺术感排列 */
+        .portfolio-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; }
+        .port-item { grid-column: span 6; margin-bottom: 40px; }
+        .port-item.wide { grid-column: span 8; }
+        .port-item.small { grid-column: span 4; margin-top: 60px; }
+        .port-img { width: 100%; filter: grayscale(100%); transition: 0.5s; cursor: pointer; border: 1px solid #1a1a1a; }
+        .port-img:hover { filter: grayscale(0%); transform: scale(1.02); }
+        .port-caption { margin-top: 15px; font-size: 0.8rem; letter-spacing: 1px; color: var(--secondary); text-transform: uppercase; }
+
+        .cursor { animation: blink 1s infinite; color: var(--accent); }
         @keyframes blink { 50% { opacity: 0; } }
+
+        @media (max-width: 768px) {
+            .title-main { font-size: 3rem; }
+            .resume-grid { grid-template-columns: 1fr; }
+            .hero-top { flex-direction: column; align-items: flex-start; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="wave-bg"></div>
-
+    <div class="ambient-bg"></div>
+    
     <nav>
-        <div style="font-weight: bold; letter-spacing: 2px;">KPTAN DESIGN</div>
-        <button class="lang-switch" onclick="toggleLang()">EN / 中文</button>
+        <div class="logo">K.P. TAN</div>
+        <button class="lang-btn" onclick="toggleLang()">CH / EN</button>
     </nav>
 
     <div class="container">
         <section class="hero">
-            <div class="hero-text">
-                <div id="name-tag" style="color: var(--accent-color); margin-bottom: 10px;">TAN KIAN PING / 陈建凭</div>
-                <div class="headline" id="typewriter"></div><span class="cursor">|</span>
-                <p id="hero-desc" style="color: #a0a0a0; line-height: 1.6;"></p>
+            <div class="hero-top">
+                <div class="avatar-frame">
+                    <img src="avatar.jpg" alt="K.P. Tan" onerror="this.src='https://via.placeholder.com/150/111/fff?text=Photo'">
+                </div>
+                <div>
+                    <div id="sub-title" style="color: var(--secondary); letter-spacing: 3px; margin-bottom: 10px;">ART DIRECTOR & FOUNDER</div>
+                    <h1 class="title-main">Kian Ping Tan</h1>
+                </div>
             </div>
-            <img src="avatar.jpg" class="hero-img" alt="Profile">
+            <div class="typewriter-box">
+                <span id="typewriter"></span><span class="cursor">_</span>
+            </div>
         </section>
 
-        <section id="resume">
-            <h2 class="section-title" id="title-exp">工作经验 / Experience</h2>
-            <div id="experience-list"></div>
+        <section class="section" id="resume">
+            <div class="section-header">
+                <h2 class="section-title" id="t-exp">核心履历</h2>
+                <span class="section-num">01 — Experience</span>
+            </div>
+
+            <div id="exp-list">
+                </div>
         </section>
 
-        <section id="portfolio">
-            <h2 class="section-title" id="title-port">精选作品 / Portfolio</h2>
+        <section class="section" id="work">
+            <div class="section-header">
+                <h2 class="section-title" id="t-work">精选案例</h2>
+                <span class="section-num">02 — Selected Works</span>
+            </div>
+            
             <div class="portfolio-grid">
-                <div class="portfolio-card"><img src="country.jpg"><h3>Poh Kong Jewellers</h3></div>
-                <div class="portfolio-card"><img src="stanchart.jpg"><h3>Standard Chartered</h3></div>
-                <div class="portfolio-card"><img src="tactics.jpg"><h3>Bonia Group</h3></div>
-                <div class="portfolio-card"><img src="pohkong.jpg"><h3>MSC Venture Corp</h3></div>
-                <div class="portfolio-card"><img src="mscvc.jpg"><h3>MSC Venture Corp</h3></div>
-                <div class="portfolio-card"><img src="mml.jpg"><h3>MSC Venture Corp</h3></div>
-                <div class="portfolio-card"><img src="malbex.jpg"><h3>MSC Venture Corp</h3></div>
+                <div class="port-item wide">
+                    <img src="pohkong.jpg" class="port-img" onerror="this.style.display='none'">
+                    <div class="port-caption">Poh Kong Jewellers / Interactive Campaign</div>
+                </div>
+                <div class="port-item small">
+                    <img src="stanchart.jpg" class="port-img" onerror="this.style.display='none'">
+                    <div class="port-caption">Standard Chartered / Digital Presentation</div>
+                </div>
+                <div class="port-item">
+                    <img src="bonia.jpg" class="port-img" onerror="this.style.display='none'">
+                    <div class="port-caption">Bonia Group / Brand Visuals</div>
+                </div>
+                <div class="port-item">
+                    <img src="msc.jpg" class="port-img" onerror="this.style.display='none'">
+                    <div class="port-caption">MSC Venture Corp / Multimedia Design</div>
+                </div>
             </div>
         </section>
     </div>
 
     <script>
-        const data = {
+        const content = {
             zh: {
-                hero_desc: "拥有超过20年跨领域经验的创意人。从早期的 3D 动画与互动网页设计，到成功创立并经营独立品牌。擅长将前沿技术转化为富有情感的视觉体验。",
-                exp_title: "职业生涯",
-                port_title: "项目作品",
-                typewriter: ["将人工智能技术融入视觉设计", "打造沉浸式多媒体互动体验", "20年创意沉淀，链接未来设计"],
+                sub: "资深艺术总监 / 创意策划",
+                t_exp: "专业积淀",
+                t_work: "精选案例",
+                phrases: ["将人工智能技术融入视觉设计", "打造沉浸式品牌互动体验", "二十年创意沉淀，链接未来设计"],
                 experiences: [
-                    { date: "2004 - 2016", company: "Sky Book City (创始人兼经理)", desc: "创立并运营独立漫画书店，负责品牌视觉、库存管理及社区运营。" },
-                    { date: "2000 - 2002", company: "Elitniaga Sdn Bhd (多媒体设计师)", desc: "开发基于 Flash 的交互界面及 3D 视觉素材，服务于企业演示与市场营销。" },
-                    { date: "1998 - 2000", company: "Hitechniaga Sdn Bhd (网页设计师)", desc: "为企业客户提供互动网站方案，负责动态图形与 UI 设计。" }
+                    { year: "2004 — 2016", title: "Sky Book City", role: "创始人 / 运营总监", desc: "创立并经营独立品牌，深耕视觉识别系统与商业社区运营。" },
+                    { year: "2000 — 2002", title: "Elitniaga Sdn Bhd", role: "多媒体专家", desc: "专注交互界面开发与 3D 视觉素材创作，为企业提供数字化转型方案。" },
+                    { year: "1998 — 2000", title: "Hitechniaga Sdn Bhd", role: "网页视觉设计师", desc: "负责大型企业网站的视觉架构与动态交互逻辑设计。" }
                 ]
             },
             en: {
-                hero_desc: "A creative professional with over 20 years of cross-disciplinary experience. From early 3D animation and interactive web design to successful business entrepreneurship.",
-                exp_title: "Professional Experience",
-                port_title: "Selected Portfolio",
-                typewriter: ["Integrating AI into Visual Design", "Creating Immersive Multimedia Experiences", "20 Years of Creativity, Shaping the Future"],
+                sub: "ART DIRECTOR / CREATIVE STRATEGIST",
+                t_exp: "Experience",
+                t_work: "Portfolio",
+                phrases: ["Merging AI with Visual Aesthetics", "Designing Immersive Brand Experiences", "Two Decades of Creative Evolution"],
                 experiences: [
-                    { date: "2004 - 2016", company: "Sky Book City (Founder & Manager)", desc: "Founded and managed a comic bookstore, handling branding, inventory, and community engagement." },
-                    { date: "2000 - 2002", company: "Elitniaga Sdn Bhd (Multimedia Designer)", desc: "Developed Flash-based interfaces and 3D visuals for corporate product demos." },
-                    { date: "1998 - 2000", company: "Hitechniaga Sdn Bhd (Web Designer)", desc: "Delivered interactive web solutions and motion graphics for corporate clients." }
+                    { year: "2004 — 2016", title: "Sky Book City", role: "Founder / Manager", desc: "Established and managed a boutique brand, focusing on visual identity and community operations." },
+                    { year: "2000 — 2002", title: "Elitniaga Sdn Bhd", role: "Multimedia Designer", desc: "Specialized in Flash interfaces and 3D assets for high-end corporate presentations." },
+                    { year: "1998 — 2000", title: "Hitechniaga Sdn Bhd", role: "Web Designer", desc: "Crafting digital experiences and motion graphics for corporate clients." }
                 ]
             }
         };
 
-        let currentLang = 'zh';
-
-        function updateContent() {
-            const langData = data[currentLang];
-            document.getElementById('hero-desc').innerText = langData.hero_desc;
-            document.getElementById('title-exp').innerText = langData.exp_title;
-            document.getElementById('title-port').innerText = langData.port_title;
-
-            const expList = document.getElementById('experience-list');
-            expList.innerHTML = langData.experiences.map(item => `
-                <div class="resume-item">
-                    <div class="resume-date">${item.date}</div>
-                    <div style="font-weight:bold; font-size:1.2rem; margin-bottom:5px;">${item.company}</div>
-                    <div style="color:#ccc;">${item.desc}</div>
-                </div>
-            `).join('');
-            
-            // 重启打字机
-            phraseIndex = 0;
-            charIndex = 0;
-            isDeleting = false;
-        }
-
-        function toggleLang() {
-            currentLang = currentLang === 'zh' ? 'en' : 'zh';
-            updateContent();
-        }
-
-        // 打字机逻辑
-        const textElement = document.getElementById('typewriter');
-        let phraseIndex = 0;
-        let charIndex = 0;
+        let lang = 'zh';
+        let pIdx = 0;
+        let cIdx = 0;
         let isDeleting = false;
 
-        function type() {
-            const phrases = data[currentLang].typewriter;
-            const currentPhrase = phrases[phraseIndex];
+        function update() {
+            const d = content[lang];
+            document.getElementById('sub-title').innerText = d.sub;
+            document.getElementById('t-exp').innerText = d.t_exp;
+            document.getElementById('t-work').innerText = d.t_work;
             
-            if (isDeleting) {
-                textElement.innerText = currentPhrase.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                textElement.innerText = currentPhrase.substring(0, charIndex + 1);
-                charIndex++;
-            }
-
-            let typeSpeed = isDeleting ? 50 : 100;
-
-            if (!isDeleting && charIndex === currentPhrase.length) {
-                isDeleting = true;
-                typeSpeed = 2000;
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                phraseIndex = (phraseIndex + 1) % phrases.length;
-                typeSpeed = 500;
-            }
-
-            setTimeout(type, typeSpeed);
+            document.getElementById('exp-list').innerHTML = d.experiences.map(e => `
+                <div class="resume-grid">
+                    <div class="year">${e.year}</div>
+                    <div class="exp-info">
+                        <h3>${e.title} / <span style="font-weight:200; font-size:1.1rem">${e.role}</span></h3>
+                        <p>${e.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+            pIdx = 0; cIdx = 0; isDeleting = false;
         }
 
-        window.onload = () => {
-            updateContent();
-            type();
-        };
+        function type() {
+            const phrases = content[lang].phrases;
+            const current = phrases[pIdx];
+            const el = document.getElementById('typewriter');
+            
+            if (isDeleting) {
+                el.innerText = current.substring(0, cIdx - 1);
+                cIdx--;
+            } else {
+                el.innerText = current.substring(0, cIdx + 1);
+                cIdx++;
+            }
+
+            let speed = isDeleting ? 40 : 100;
+            if (!isDeleting && cIdx === current.length) { isDeleting = true; speed = 3000; }
+            else if (isDeleting && cIdx === 0) { isDeleting = false; pIdx = (pIdx + 1) % phrases.length; speed = 500; }
+            
+            setTimeout(type, speed);
+        }
+
+        function toggleLang() { lang = lang === 'zh' ? 'en' : 'zh'; update(); }
+
+        window.onload = () => { update(); type(); };
     </script>
 </body>
 </html>
